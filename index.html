@@ -1,0 +1,310 @@
+<html>
+    <head>
+        <title>RSA</title>
+        <meta charset="UTF-8">
+        <script src="rsa.js" defer></script>
+        <script src='./bignumber/bignumber.js'></script>
+    </head>
+
+    <style>
+        *{margin:0;padding:0;box-sizing: border-box;}
+
+        body{
+            background-color: #5f7c8a;
+
+        }
+
+        form {
+            background-color: white;
+            width: 90%;
+            padding: 20px;
+            position: absolute;
+            left:50%;
+            top: 60%;
+            transform: translate(-50%, -50%);
+        }
+        form h3{
+            text-align: center;
+            color: #5f7c8a;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+        form #titulo_cifrar,#titulo_decifrar{
+            text-align: center;
+            color: #5f7c8a;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-size:18;
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        form #text_cifrar, #text_decifrar{
+            color: #5f7c8a;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-size: 12;
+            float: left;
+
+            width: 200px;
+        }
+
+        form #text_resultado_cifrar, #text_resultado_decifrar{
+            color: #5f7c8a;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-size: 12;
+            text-align: center;
+            width: 100%;
+        }
+
+        form #cifra{
+            color: #5f7c8a;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-size: 12;
+            float: left;
+
+            width: 100%;
+        }
+
+        form #gerar, #cifrar,#decifrar{
+            width: 100%;
+            height: 40px;
+            margin: 10px 0;
+            cursor: pointer;
+            background: #5f7c8a;
+            color: white;
+            border: 0;
+            border-radius: 20px;
+        }
+        form #input_cifra{
+            width: 100%;
+            height: 100px;
+            height: 130px;
+            padding-top: 30px;
+        }
+
+        form #q2{
+            width: 100%;
+            height: 150px;
+            float: left;
+            padding-right: 50px;
+            padding-left: 50px;
+        }
+        form #q3{
+            width: 100%;
+            height: 400px;
+            float: left;
+            padding-top: 30px;;
+            
+        }
+        form #q1{
+            width: 100%;
+            height: 200px;
+            float: left;
+            padding-right: 30px;
+            padding-left: 10px;
+        }
+
+        form #parametros_esq, #parametros_dir{
+            width: 50%;
+            height: 100%;
+            float: left;
+            padding-right: 30px;
+            padding-left: 10px;
+        }
+        form #text_resultado{
+            width: 100%;
+            height: 40px;;
+            padding-right: 30px;
+            padding-left: 10px;
+            border-top: 2px solid #5f7c8a;
+            padding-top: 10px;
+        }
+
+        form #n,#e,#d,#chave_privada,#phi,#chave_publica{
+            width: 100%;
+            height: 50px; 
+        }
+
+        form #num_p{
+            width: 60%;
+            margin: 40px 0;
+            height: 30px;
+            float: left;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        form #num_q{
+            width: 40%;
+            margin: 40px 0;
+            height: 30px;
+            float: left;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        
+        form #warning,#vazio{
+            padding-left: 2px;
+            color: red;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-size: 15;
+        }
+        form #text_q2{
+            color: #5f7c8a;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-size: 15;
+            float: left;
+            padding-right: 12px;
+            width: 150px;
+        }
+        form #text_q2_1{
+            color: #5f7c8a;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-size: 15;
+            float: left;
+            padding-right: 12px;
+            width: 150px;
+        }
+        form #text_q1{
+            text-align: center;
+            color: #5f7c8a;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-size: 15;
+            float: left;
+            padding-right: 12px;
+        }
+        
+        form #value_n, #value_e, #value_chave_privada,#value_phi, #value_d,#value_chave_publica{
+            display: flex;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-bottom: 5px;
+            width: 150px;
+            border: 2px solid #5f7c8a;
+        }
+
+        form #value_cifrar,#value_decifrar{
+            word-break:break-word;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-bottom: 5px;
+            max-width: 250px;
+            border: 2px solid #5f7c8a;
+        }
+
+        form #value_p,#value_q{
+            max-width: 10%;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-bottom: 5px;
+            
+            border: 2px solid #5f7c8a;
+        }
+
+        form #value_resultado_decifrar,#value_resultado_cifrar{
+            text-align: center;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-bottom: 5px;
+            max-width: 100%;
+            display: flex;
+            word-break:break-word;
+            
+            border: 2px solid #5f7c8a;
+        }
+        
+
+    </style>
+
+    <body>
+        <form>
+            <h3>CRIPTOGRAFIA RSA</h3>
+            <div id="q1">
+                <div id="num_p">
+                    <h1 id="text_q1">Digite um número primo:</h1>
+                    <input id="value_p" type="text" placeholder="..." />
+                    <label id="warning"></label>
+                </div>
+                <div id="num_q">
+                    <h1 id="text_q1">O segundo número será:</h1>
+                    <label id="value_q">-</label>
+                    <label id="vazio"></label>
+                </div>
+
+                <input type="submit" name="gerar" id="gerar" value="GERAR PAR DE CHAVES RSA" />
+            </div>
+            
+            <div id="q2">
+                    <div id="parametros_esq">
+                            <div id="n">
+                                <h1 id="text_q2">VALOR DE N:</h1>
+                                <label id="value_n">-</label>
+                            </div>
+                                
+                            <div id="e">
+                                <h1 id="text_q2">VALOR DE E:</h1>
+                                <label id="value_e">-</label>
+                            </div>
+
+                            <div id="chave_privada">
+                                <h1 id="text_q2">CHAVE PRIVADA:</h1>
+                                <label id="value_chave_privada">-</label>
+                            </div>
+                                
+                    </div>
+                    <div id="parametros_dir">
+                        <div id="phi">
+                            <h1 id="text_q2_1">VALOR DE PHI(N): </h1>
+                            <label id="value_phi">-</label>
+                        </div>
+
+                        <div id="d">
+                            <h1 id="text_q2_1">VALOR DE D: </h1>
+                            <label id="value_d">-</label>
+                        </div>
+
+                        <div id="chave_publica">
+                            <h1 id="text_q2">CHAVE PRIVADA:</h1>
+                            <label id="value_chave_publica">-</label>
+                        </div>
+                        
+                    </div>
+                      
+                        
+                    </div>
+            </div>
+
+            <div id="q3">
+                <div id="parametros_esq">
+                    <div id="text_resultado">
+                        <h1 id="titulo_cifrar">CRIFRAR MENSAGEM</h1>
+                    </div>
+                    <div id="input_cifra">
+                        <h1 id="text_cifrar">Digite a frase para ser cifrada (Base64):</h1>
+                        <input id="value_cifrar"placeholder="Digite uma frase..."></input>
+                        <input type="submit" name="gerar" id="cifrar" value="CRIPTOGRAFAR MENSAGEM" />
+                    </div>
+                    
+                    <div id="resultado_cifra">
+                        <h1 id="text_resultado_cifrar">A frase cifrada é:</h1>
+                        <label id="value_resultado_cifrar">-</label>
+                    </div>
+                </div>
+                <div id="parametros_dir">
+                    <div id="text_resultado">
+                        <h1 id="titulo_decifrar">DECIFRAR MENSAGEM</h1>
+                    </div>
+
+                    <div id="input_cifra">
+                        <h1 id="text_cifrar">Digite a frase para ser decifrada (Base64):</h1>
+                        <input id="value_decifrar" placeholder="Digite uma frase..."></input>
+                        <input type="submit" name="gerar" id="decifrar" value="DECRIPTOGRAFAR MENSAGEM" />
+                    </div>
+
+                    <div id="resultado_decifra">
+                        <h1 id="text_resultado_decifrar">A frase decifrada é:</h1>
+                        <label id="value_resultado_decifrar">-</label>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+</html>
